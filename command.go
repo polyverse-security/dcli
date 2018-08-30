@@ -1,9 +1,9 @@
 package dcli
 
 import (
-"fmt"
+	"fmt"
 
-"github.com/fatih/color"
+	"github.com/fatih/color"
 )
 
 func PassArgs(args []string, consumed int) []string {
@@ -31,11 +31,13 @@ var (
 )
 
 type CommandNode struct {
-	N           string // Name
-	D           string // Description
-	U           string // Usage
+	D             string // Description
+	N             string // Name
+	RequirePrompt bool   // Require a prompt to execute the RunFunc
+	RunFunc       func([]string, *CommandNode)
+	U             string // Usage
+
 	subCommands []Command
-	RunFunc     func([]string, *CommandNode)
 	parent      string
 }
 
@@ -45,6 +47,22 @@ func (cc *CommandNode) AddSubCommand(sub Command) {
 
 func (cc *CommandNode) SubCommands() []Command {
 	return cc.subCommands
+}
+
+func (cc *CommandNode) SelectSubCommand(args []string) {
+	if len(args) < 1 {
+		cc.Help()
+		return
+	}
+
+	for _, sc := range cc.SubCommands() {
+		if args[0] == sc.Name() {
+			sc.Run(PassArgs(args, 1))
+			return
+		}
+	}
+
+	cc.Help()
 }
 
 func (cc *CommandNode) Name() string {
@@ -72,4 +90,3 @@ func (cc *CommandNode) Help() {
 func (cc *CommandNode) Run(args []string) {
 	cc.RunFunc(args, cc)
 }
-
