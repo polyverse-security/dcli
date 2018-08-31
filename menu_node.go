@@ -4,10 +4,9 @@ import "fmt"
 
 // MenuNode is a node that provides a menu interface
 type MenuNode struct {
-	description string // Description
-	name        string // Name
-	runFunc     func([]string)
-	usage       string // Usage
+	D string // Description
+	N string // Name
+	U string // Usage
 
 	subCommands []DiscoveryNode
 }
@@ -16,58 +15,56 @@ type MenuNodeInput struct {
 	Name        string
 	Description string
 	Usage       string
-	RunFunc     func([]string)
 }
 
 func NewMenuNode(input MenuNodeInput) *MenuNode {
 	return &MenuNode{
-		name:        input.Name,
-		description: input.Description,
-		usage:       input.Usage,
-		runFunc:     input.RunFunc,
+		N: input.Name,
+		D: input.Description,
+		U: input.Usage,
 	}
 }
 
-// Run will iterate through the subCommands nodes looking for the correct name and then pass the remaining arguments
+// Run will iterate through the subCommands nodes looking for the correct N and then pass the remaining arguments
 // to the child node.
-func (cc *MenuNode) Run(args []string) {
+func (mn *MenuNode) Run(args []string) {
 	if len(args) < 1 {
-		cc.Help()
+		mn.Help()
 		return
 	}
 
-	for _, child := range cc.subCommands {
+	for _, child := range mn.subCommands {
 		if args[0] == child.Name() {
 			child.Run(args[1:])
 			return
 		}
 	}
 
-	cc.Help()
+	mn.Help()
 }
 
-func (cc *MenuNode) AddSubCommand(child DiscoveryNode) {
-	cc.subCommands = append(cc.subCommands, child)
+func (mn *MenuNode) AddSubCommand(child DiscoveryNode) {
+	mn.subCommands = append(mn.subCommands, child)
 }
 
-func (cc *MenuNode) Name() string {
-	return cc.name
+func (mn *MenuNode) Name() string {
+	return mn.N
 }
 
-func (cc *MenuNode) Description() string {
-	return cc.description
+func (mn *MenuNode) Description() string {
+	return mn.D
 }
 
-func (cc *MenuNode) Usage() string {
-	return cc.usage
+func (mn *MenuNode) Usage() string {
+	return mn.U
 }
 
-func (cc *MenuNode) Help() {
-	fmt.Printf("Usage: %s\n\n", cc.usage)
-	if len(cc.subCommands) > 0 {
+func (mn *MenuNode) Help() {
+	fmt.Printf("Usage: %s\n\n", mn.U)
+	if len(mn.subCommands) > 0 {
 		fmt.Println(cyan("Subcommands:"))
 	}
-	for _, sc := range cc.subCommands {
+	for _, sc := range mn.subCommands {
 		fmt.Printf("    %-15s %15s\n", sc.Name(), yellow(sc.Description()))
 	}
 }
