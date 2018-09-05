@@ -8,11 +8,11 @@ import (
 )
 
 var (
-	yellow = color.New(color.FgYellow).SprintFunc()
-	red    = color.New(color.FgRed).SprintFunc()
-	green  = color.New(color.FgGreen).SprintFunc()
-	cyan   = color.New(color.FgCyan).SprintFunc()
-	pink   = color.New(color.FgHiMagenta).SprintFunc()
+	Yellow = color.New(color.FgYellow).SprintFunc()
+	Red    = color.New(color.FgRed).SprintFunc()
+	Green  = color.New(color.FgGreen).SprintFunc()
+	Cyan   = color.New(color.FgCyan).SprintFunc()
+	Pink   = color.New(color.FgHiMagenta).SprintFunc()
 )
 
 type DiscoveryNode interface {

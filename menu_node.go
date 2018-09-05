@@ -62,9 +62,9 @@ func (mn *MenuNode) Usage() string {
 func (mn *MenuNode) Help() {
 	fmt.Printf("Usage: %s\n\n", mn.U)
 	if len(mn.subCommands) > 0 {
-		fmt.Println(cyan("Subcommands:"))
+		fmt.Println(Cyan("Subcommands:"))
 	}
 	for _, sc := range mn.subCommands {
-		fmt.Printf("    %-15s %15s\n", sc.Name(), yellow(sc.Description()))
+		fmt.Printf("    %-15s %15s\n", sc.Name(), Yellow(sc.Description()))
 	}
 }
