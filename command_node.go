@@ -44,7 +44,6 @@ func (cn *CommandNode) Run(args []string) {
 			cn.Help()
 			return
 		}
-
 		if f.Required() && !f.IsSet() {
 			fmt.Printf(Red("\nRequired flag missing: ")+"%s\n", f.Name())
 			cn.Help()

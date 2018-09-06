@@ -40,6 +40,7 @@ func (f *StringFlag) Parse() error {
 	for _, buf := range flagsBuffer {
 		if buf.name == f.N {
 			f.V = &buf.value
+			stringFlags[f.N] = f
 			break
 		}
 	}
