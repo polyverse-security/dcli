@@ -6,7 +6,7 @@ import "fmt"
 type MenuNode struct {
 	D string // Description
 	N string // Name
-	U string // Usage
+	U string // Description
 
 	subCommands []DiscoveryNode
 }
@@ -60,9 +60,10 @@ func (mn *MenuNode) Usage() string {
 }
 
 func (mn *MenuNode) Help() {
-	fmt.Printf("Usage: %s\n\n", mn.U)
+	fmt.Println()
+	fmt.Printf("Description: %s\n\n", mn.U)
 	if len(mn.subCommands) > 0 {
-		fmt.Println(Cyan("Subcommands:"))
+		fmt.Println(Cyan("Available commands:"))
 	}
 	for _, sc := range mn.subCommands {
 		fmt.Printf("    %-15s %15s\n", sc.Name(), Yellow(sc.Description()))

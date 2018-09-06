@@ -2,9 +2,10 @@ package dcli
 
 import (
 	"os"
-	"strings"
 
 	"github.com/fatih/color"
+	"github.com/ianchildress/dcli/flags"
+	"github.com/ianchildress/dcli/toggles"
 )
 
 var (
@@ -24,20 +25,10 @@ type DiscoveryNode interface {
 }
 
 func Start(top DiscoveryNode) {
-	osArgs := os.Args[1:]
-	flags := make(map[string]string)
-	var nodeArgs []string
-
-	for i := 0; i < len(osArgs); i++ {
-		// look for flags
-		if strings.HasPrefix(osArgs[i], "--") {
-			flags[strings.TrimPrefix(osArgs[i], "--")] = osArgs[i+1]
-			i++
-			continue
-		}
-		nodeArgs = append(nodeArgs, osArgs[i])
-
-	}
-
-	top.Run(nodeArgs)
+	// Parse out the toggles
+	togglesRemovedArgs := toggles.ParseToggles(os.Args[1:])
+	// Parse out the flags
+	flagsRemovedArgs := flags.ParseFlags(togglesRemovedArgs)
+	// Begin running nodes
+	top.Run(flagsRemovedArgs)
 }
