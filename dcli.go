@@ -32,3 +32,13 @@ func Start(top DiscoveryNode) {
 	// Begin running nodes
 	top.Run(flagsRemovedArgs)
 }
+
+// New returns a new top level DiscoveryNode
+func New(serviceName string) DiscoveryNode {
+	var top = &MenuNode{
+		N: serviceName,
+		D: serviceName,
+		U: serviceName + " <subcommand> <args...>",
+	}
+	return top
+}
