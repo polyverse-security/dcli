@@ -33,8 +33,8 @@ func Start(top DiscoveryNode) {
 	top.Run(flagsRemovedArgs)
 }
 
-// New returns a new top level DiscoveryNode
-func New(serviceName string) DiscoveryNode {
+// New returns a MenuNode node intended to be the top level MenuNode
+func New(serviceName string) *MenuNode {
 	var top = &MenuNode{
 		N: serviceName,
 		D: serviceName,
