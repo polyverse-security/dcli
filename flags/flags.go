@@ -27,7 +27,7 @@ func ParseFlags(args []string) []string {
 		if strings.HasPrefix(args[i], "--") {
 			cleaned := strings.TrimPrefix(args[i], "--")
 			// add it to the list of buffered flags. it'll be processed when the CommandNode runs
-			if len(args) >= i+1 {
+			if len(args) > i+1 {
 				flagsBuffer = append(flagsBuffer, flagBuffer{name: cleaned, value: args[i+1]})
 				i++
 				continue
