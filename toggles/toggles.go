@@ -43,11 +43,13 @@ func ParseToggles(args []string) []string {
 	return notToggles
 }
 
-func GetToggle(name string) *Toggle {
-	for k, v := range mToggle {
-		if k == name {
-			return v
-		}
+func GetToggle(name string) Toggle {
+	if _, ok := mToggle[name]; ok {
+		return *mToggle[name]
 	}
-	return nil
+	return Toggle{name: name}
+}
+
+func (t Toggle) Active() bool {
+	return t.active
 }
