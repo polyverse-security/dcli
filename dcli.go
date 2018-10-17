@@ -21,9 +21,12 @@ type DiscoveryNode interface {
 	Help()
 	Name() string
 	Description() string
-	Usage() string
 }
 
+// UsageSlice contains the Name of each node that has been called. This helps build the Usage: help output
+var UsageSlice []string
+
+// Start begins parsing the os.Args and executes the nodes.
 func Start(top DiscoveryNode) {
 	// Parse out the toggles
 	togglesRemovedArgs := toggles.ParseToggles(os.Args[1:])
@@ -34,11 +37,10 @@ func Start(top DiscoveryNode) {
 }
 
 // New returns a MenuNode node intended to be the top level MenuNode
-func New(serviceName string) *MenuNode {
+func New(serviceName, description string) *MenuNode {
 	var top = &MenuNode{
 		N: serviceName,
-		D: serviceName,
-		U: serviceName + " <subcommand> <args...>",
+		D: description,
 	}
 	return top
 }
