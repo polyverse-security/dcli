@@ -4,13 +4,14 @@ import "strings"
 
 // Toggles are parsed at app start
 type Toggle struct {
-	name   string
-	active bool
+	name        string
+	description string
+	active      bool
 }
 
 var mToggle map[string]*Toggle
 
-func NewToggle(name string) *Toggle {
+func NewToggle(name, description string) *Toggle {
 	if mToggle == nil {
 		mToggle = make(map[string]*Toggle)
 	}
@@ -19,7 +20,7 @@ func NewToggle(name string) *Toggle {
 		return mToggle[name]
 	}
 
-	t := &Toggle{name: name, active: false}
+	t := &Toggle{name: name, active: false, description: description}
 	mToggle[name] = t
 	return t
 }
@@ -52,4 +53,12 @@ func GetToggle(name string) Toggle {
 
 func (t Toggle) Active() bool {
 	return t.active
+}
+
+func (t Toggle) Name() string {
+	return t.name
+}
+
+func (t Toggle) Description() string {
+	return t.description
 }

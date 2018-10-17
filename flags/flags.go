@@ -1,3 +1,4 @@
+// TODO when parsing flags, check against toggles to ensure there isn't a toggle and flag with the same name
 package flags
 
 import "strings"

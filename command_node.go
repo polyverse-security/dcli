@@ -1,8 +1,11 @@
+// TODO when parsing flags for this node, place them in a global map where the CommandNode's RunFunc can access them
 package dcli
 
 import (
 	"fmt"
 	"strings"
+
+	"github.com/ianchildress/dcli/toggles"
 
 	"github.com/ianchildress/dcli/flags"
 )
@@ -14,6 +17,7 @@ type CommandNode struct {
 	Prompt  bool   // Require a prompt to execute the RunFunc
 	RunFunc func() // the function to run when this node is called
 	flags   []flags.Flag
+	toggles []*toggles.Toggle
 }
 
 func (cn *CommandNode) Name() string {
@@ -54,10 +58,21 @@ func (cn *CommandNode) printDescription() {
 	fmt.Printf("    %-15s\n", cn.D)
 }
 
+func (cn *CommandNode) printToggles() {
+	fmt.Println(Cyan(fmt.Sprintf("\nToggles:")))
+	for _, t := range cn.toggles {
+		fmt.Printf("    %-15s %15s\n",
+			fmt.Sprintf("--%s", t.Name()),
+			Yellow(t.Description()),
+		)
+	}
+}
+
 func (cn *CommandNode) Help() {
 	cn.printUsage()
 	cn.printDescription()
 	cn.printFlags()
+	cn.printToggles()
 }
 
 func (cn *CommandNode) Run(args []string) {
@@ -66,7 +81,6 @@ func (cn *CommandNode) Run(args []string) {
 	for _, f := range cn.flags {
 		if err := f.Parse(); err != nil {
 			fmt.Println(err)
-			cn.Help()
 			return
 		}
 		if f.Required() && !f.IsSet() {
@@ -75,6 +89,7 @@ func (cn *CommandNode) Run(args []string) {
 			return
 		}
 	}
+
 	cn.RunFunc()
 }
 
@@ -93,5 +108,10 @@ func (cn *CommandNode) NewIntFlag(name, description string, required bool) {
 func (cn *CommandNode) NewStringFlag(name, description string, required bool) {
 	f := flags.NewStringFlag(name, description, required)
 	cn.flags = append(cn.flags, f)
+	return
+}
+
+func (cn *CommandNode) NewToggle(name, description string) {
+	cn.toggles = append(cn.toggles, toggles.NewToggle(name, description))
 	return
 }
