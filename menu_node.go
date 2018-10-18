@@ -72,7 +72,9 @@ func (mn *MenuNode) printCommands() {
 }
 
 func (mn *MenuNode) Help() {
+	fmt.Println()
 	fmt.Println(strings.Join(UsageSlice, " "), "<command> (<subcommand>) [flags]")
 	mn.printDescription()
 	mn.printCommands()
+	fmt.Println()
 }

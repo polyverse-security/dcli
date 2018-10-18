@@ -69,10 +69,12 @@ func (cn *CommandNode) printToggles() {
 }
 
 func (cn *CommandNode) Help() {
+	fmt.Println()
 	cn.printUsage()
 	cn.printDescription()
 	cn.printFlags()
 	cn.printToggles()
+	fmt.Println()
 }
 
 func (cn *CommandNode) Run(args []string) {
