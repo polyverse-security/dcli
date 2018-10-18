@@ -1,5 +1,7 @@
 package flags
 
+import "github.com/pkg/errors"
+
 func NewStringFlag(name, description string, required bool) *StringFlag {
 	// create map if it doesn't exist
 	if stringFlags == nil {
@@ -33,10 +35,16 @@ func GetStringFlag(name string) *StringFlag {
 }
 
 func (f *StringFlag) Value() *string {
+	if f == nil {
+		return nil
+	}
 	return f.V
 }
 
 func (f *StringFlag) Parse() error {
+	if f == nil {
+		return errors.New("StringFlag is not set.")
+	}
 	for _, buf := range flagsBuffer {
 		if buf.name == f.N {
 			f.V = &buf.value
@@ -48,6 +56,9 @@ func (f *StringFlag) Parse() error {
 }
 
 func (f *StringFlag) IsSet() bool {
+	if f == nil {
+		return false
+	}
 	if f.V != nil {
 		return true
 	}
@@ -55,10 +66,16 @@ func (f *StringFlag) IsSet() bool {
 }
 
 func (f *StringFlag) Description() string {
+	if f == nil {
+		return ""
+	}
 	return f.D
 }
 
 func (f *StringFlag) Name() string {
+	if f == nil {
+		return ""
+	}
 	return f.N
 }
 
