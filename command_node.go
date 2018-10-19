@@ -59,6 +59,10 @@ func (cn *CommandNode) printDescription() {
 }
 
 func (cn *CommandNode) printToggles() {
+	if len(cn.toggles) == 0 {
+		return
+	}
+
 	fmt.Println(Cyan(fmt.Sprintf("\nToggles:")))
 	for _, t := range cn.toggles {
 		fmt.Printf("    %-15s %15s\n",
