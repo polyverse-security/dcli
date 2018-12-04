@@ -17,7 +17,7 @@ var (
 )
 
 type DiscoveryNode interface {
-	Run([]string)
+	Run([]string) error
 	Help()
 	Name() string
 	Description() string
@@ -27,13 +27,13 @@ type DiscoveryNode interface {
 var UsageSlice []string
 
 // Start begins parsing the os.Args and executes the nodes.
-func Start(top DiscoveryNode) {
+func Start(top DiscoveryNode) error {
 	// Parse out the toggles
 	togglesRemovedArgs := toggles.ParseToggles(os.Args[1:])
 	// Parse out the flags
 	flagsRemovedArgs := flags.ParseFlags(togglesRemovedArgs)
 	// Begin running nodes
-	top.Run(flagsRemovedArgs)
+	return top.Run(flagsRemovedArgs)
 }
 
 // New returns a MenuNode node intended to be the top level MenuNode

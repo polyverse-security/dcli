@@ -81,22 +81,23 @@ func (cn *CommandNode) Help() {
 	fmt.Println()
 }
 
-func (cn *CommandNode) Run(args []string) {
+func (cn *CommandNode) Run(args []string) error {
 	UsageSlice = append(UsageSlice, cn.N)
 
 	for _, f := range cn.flags {
 		if err := f.Parse(); err != nil {
 			fmt.Println(err)
-			return
+			return err
 		}
 		if f.Required() && !f.IsSet() {
 			fmt.Printf(Red("\nRequired flag missing: ")+"%s\n", f.Name())
 			cn.Help()
-			return
+			return fmt.Errorf("missing required flag %s", f.Name())
 		}
 	}
 
 	cn.RunFunc()
+	return nil
 }
 
 func (cn *CommandNode) NewBoolFlag(name, description string, required bool) {

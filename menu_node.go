@@ -27,22 +27,22 @@ func NewMenuNode(input MenuNodeInput) *MenuNode {
 
 // Run will iterate through the subCommands nodes looking for the correct N and then pass the remaining arguments
 // to the child node.
-func (mn *MenuNode) Run(args []string) {
+func (mn *MenuNode) Run(args []string) error {
 	UsageSlice = append(UsageSlice, mn.N)
 
 	if len(args) < 1 {
 		mn.Help()
-		return
+		return fmt.Errorf("")
 	}
 
 	for _, child := range mn.subCommands {
 		if args[0] == child.Name() {
-			child.Run(args[1:])
-			return
+			return child.Run(args[1:])
 		}
 	}
 
 	mn.Help()
+	return nil
 }
 
 func (mn *MenuNode) AddSubCommand(child DiscoveryNode) {
