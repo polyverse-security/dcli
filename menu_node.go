@@ -42,7 +42,7 @@ func (mn *MenuNode) Run(args []string) error {
 	}
 
 	mn.Help()
-	return nil
+	return fmt.Errorf("Please select a valid menu option.")
 }
 
 func (mn *MenuNode) AddSubCommand(child DiscoveryNode) {
