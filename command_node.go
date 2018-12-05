@@ -97,7 +97,7 @@ func (cn *CommandNode) Run(args []string) error {
 	}
 
 	cn.RunFunc()
-	return fmt.Errorf("Please check your flags and esnure all required flags are included.")
+	return nil
 }
 
 func (cn *CommandNode) NewBoolFlag(name, description string, required bool) {
