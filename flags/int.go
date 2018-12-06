@@ -47,9 +47,10 @@ func (f *IntFlag) Parse() error {
 		if buf.name == f.N {
 			i, err := strconv.Atoi(buf.value)
 			if err != nil {
-				return fmt.Errorf("flag %s expected an int V but was given %s", f.N, buf.value)
+				return fmt.Errorf("flag %s expected an int but was given %s", f.N, buf.value)
 			}
 			f.V = &i
+			intFlags[f.N] = f
 			break
 		}
 	}

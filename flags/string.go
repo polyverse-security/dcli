@@ -1,6 +1,8 @@
 package flags
 
-import "github.com/pkg/errors"
+import (
+	"github.com/pkg/errors"
+)
 
 func NewStringFlag(name, description string, required bool) *StringFlag {
 	// create map if it doesn't exist

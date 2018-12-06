@@ -1,7 +1,9 @@
 // TODO when parsing flags, check against toggles to ensure there isn't a toggle and flag with the same name
 package flags
 
-import "strings"
+import (
+	"strings"
+)
 
 // Flags are parsed when the command is run, allowing you to register the same flag N more than once
 type Flag interface {
