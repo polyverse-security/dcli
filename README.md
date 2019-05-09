@@ -44,3 +44,12 @@ subCommand.NewStringFlag(
 top.AddCommand(subCommand)
 dcli.Start(top)
 ```
+
+
+### Possibly TODO:
+* Support POSIX arguments
+* Support global arguments
+* Tests
+* More documentation
+* Automatic argument to variable binding
+* Better error handling/help printing
