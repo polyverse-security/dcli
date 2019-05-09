@@ -25,7 +25,7 @@ type BoolFlag struct {
 
 var boolFlags map[string]*BoolFlag
 
-func GetBool(name string) *BoolFlag {
+func GetBoolFlag(name string) *BoolFlag {
 	for k, v := range boolFlags {
 		if k == name {
 			return v
