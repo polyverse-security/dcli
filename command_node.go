@@ -5,9 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/ianchildress/dcli/toggles"
-
-	"github.com/ianchildress/dcli/flags"
+	"github.com/polyverse-security/dcli/toggles"
+	"github.com/polyverse-security/dcli/flags"
 )
 
 // CommandNode is a node that executes a function.
