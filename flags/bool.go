@@ -36,6 +36,9 @@ func GetBool(name string) *BoolFlag {
 
 // A V of nil means the V was not set.
 func (f *BoolFlag) Value() *bool {
+	if f == nil {
+		return nil
+	}
 	return f.V
 }
 
