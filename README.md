@@ -16,6 +16,7 @@ Example usage:
 ```go
 package mypackage
 import (
+	"github.com/polyverse-security/dcli/flags"
 	"github.com/polyverse-security/dcli"
 	"fmt"
 	)
@@ -28,7 +29,8 @@ var subCommand = &dcli.CommandNode{
 	N:       "subcommand",
 	D:       "example subcommand",
 	RunFunc: func(){
-		fmt.Println("example run stuffs")
+		val := *flags.GetStringFlag("arg1").Value()
+		fmt.Println("example run stuffs: ", val)
 	},
 }
 subCommand.NewStringFlag(
@@ -44,6 +46,7 @@ subCommand.NewStringFlag(
 top.AddCommand(subCommand)
 dcli.Start(top)
 ```
+
 
 
 ### Possibly TODO:
