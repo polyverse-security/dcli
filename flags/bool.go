@@ -25,7 +25,7 @@ type BoolFlag struct {
 
 var boolFlags map[string]*BoolFlag
 
-func GetBool(name string) *BoolFlag {
+func GetBoolFlag(name string) *BoolFlag {
 	for k, v := range boolFlags {
 		if k == name {
 			return v
@@ -36,6 +36,9 @@ func GetBool(name string) *BoolFlag {
 
 // A V of nil means the V was not set.
 func (f *BoolFlag) Value() *bool {
+	if f == nil {
+		return nil
+	}
 	return f.V
 }
 
