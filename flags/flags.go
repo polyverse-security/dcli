@@ -41,6 +41,8 @@ func ParseFlags(args []string) []string {
 	return nodeArgs
 }
 
+//todo: Is this appropriate? GetFlag should return any of 3 types (bool, int, string), not just a *string?
+//Not sure how to handle this.
 func GetFlag(name string) *string {
 	for i := range flagsBuffer {
 		if flagsBuffer[i].name == name {
