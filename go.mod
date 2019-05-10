@@ -1,4 +1,4 @@
-module github.com/polyverse-security/dcli
+module github.com/ianchildress/dcli
 
 go 1.12
 
