@@ -39,6 +39,9 @@ func GetIntFlag(name string) *IntFlag {
 
 // A value of nil means the value was not set.
 func (f *IntFlag) Value() *int {
+	if f == nil {
+		return nil
+	}
 	return f.V
 }
 
