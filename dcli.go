@@ -4,8 +4,8 @@ import (
 	"os"
 
 	"github.com/fatih/color"
-	"github.com/ianchildress/dcli/flags"
-	"github.com/ianchildress/dcli/toggles"
+	"github.com/polyverse-security/dcli/flags"
+	"github.com/polyverse-security/dcli/toggles"
 )
 
 var (
