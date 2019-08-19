@@ -94,6 +94,28 @@ func testInt() {
 }
 
 ```
+# SingleNode
+SingleNode should be used when you don't have multiple routing options. It provides the flag and toggle checking and
+ exposure like a CommandNode but without the MenuNode requirement. It does automatically run a registered function. 
+
+Example SingleNode
+```
+func startup() (bbservice.Service, error) {
+   	node := dcli.SingleNode{
+   		N: "duality",
+   		D: "BigBang service responsible for populating an Instance with unscrambled packages to fulfill the Closed Loop Instance requirements.",
+   	}
+   	node.NewStringFlag("account", "aws account id", true)
+   	node.NewStringFlag("region", "aws region", true)
+   	node.NewStringFlag("stack", "BigBang stack namespace", true)
+   
+   	if err := node.Parse(); err != nil {
+   		return nil, err
+   	}
+   
+   	return AwsDuality{}, nil
+}
+```
 
 
 ### Possibly TODO:
